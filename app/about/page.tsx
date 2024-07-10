@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Share your best thoughts",
+}
+
 export default function AboutPage() {
   return (
     <main>
