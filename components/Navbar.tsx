@@ -1,16 +1,28 @@
+"use client"
+
 import Link from "next/link"
+import styles from "./Navbar.module.css"
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
+  const pathname = usePathname();
+  console.log(pathname);
+  // console.log("server")
+
+  function isActive(linkPathname: string) {
+    return pathname === linkPathname
+  }
+
   return (
     <nav>
-      <div>
-        <Link href="/">MiniBlog</Link>
-        <Link href="/drafts">Drafts</Link>
-        <Link href="/about">About</Link>
+      <div className={styles.left}>
+        <Link href="/" data-active={isActive("/")}>MiniBlog</Link>
+        <Link href="/drafts" data-active={isActive("/drafts")}>Drafts</Link>
+        <Link href="/about" data-active={isActive("/about")}>About</Link>
       </div>
-      <div>
-        <Link href="/signup">Sign Up</Link>
-        <Link href="/create">+ Create Post</Link> 
+      <div className={styles.right}>
+        <Link href="/signup" data-active={isActive("/signup")}>Sign Up</Link>
+        <Link href="/create" data-active={isActive("/create")}>+ Create Post</Link> 
       </div>
     </nav>
   )
