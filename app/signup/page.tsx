@@ -7,6 +7,18 @@ import Link from 'next/link'
 export default function SignUpPage() {
   const router = useRouter()
 
+  async function submitAction(formData: FormData) {
+    "user server"
+    const name = String(formData.get('name'))
+    const email = String(formData.get('email'))
+    const data = {name, email}
+    if (name && email) {
+      await prisma,user,create({
+        data
+      })
+    }  
+  }
+
   async function submitData(event: React.SyntheticEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget)
     const name = String(formData.get('name'))
@@ -29,7 +41,7 @@ export default function SignUpPage() {
 
   return (
     <div className={styles.page}>
-      <form onSubmit={submitData}>
+      <form action={submitAction}>
         <h1>Sign Up</h1>
         <input name="name" placeholder="Name" type="text" />
         <input name="email" placeholder="Email Address" type="email" />
