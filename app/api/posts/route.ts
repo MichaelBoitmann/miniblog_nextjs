@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+// GET /api
 export async function GET(request: Request) {
   const posts = await prisma.post.findMany({
     where: {
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
     },
     include: {
       author: true,
-    }
-  })
-  return NextResponse.json(posts)
+    },
+  });
+  return NextResponse.json(posts);
 }
