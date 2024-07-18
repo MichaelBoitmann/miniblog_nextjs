@@ -1,44 +1,37 @@
-"use client"
-
-import { useRouter } from "next/navigation"
+import { redirect } from "next/navigation"
 import styles from "./SignUp.module.css"
 import Link from 'next/link'
+import prisma from "@/lib/prisma"
 
 export default function SignUpPage() {
-  const router = useRouter()
 
   async function submitAction(formData: FormData) {
-    "user server"
+    "use server"
     const name = String(formData.get('name'))
     const email = String(formData.get('email'))
     const data = {name, email}
     if (name && email) {
-      await prisma,user,create({
-        data
-      })
+      await prisma.user.create({ data })
+      redirect('/')
     }  
   }
-
-  async function submitData(event: React.SyntheticEvent<HTMLFormElement>) {
-    const formData = new FormData(event.currentTarget)
-    const name = String(formData.get('name'))
-    const email = String(formData.get('email'))
-    const data = {name, email}
-    if (name && email) {
-      await fetch('http://localhost:3000/api/signup', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      router.push("/")
-    }
-  }
-
-
-
-
+  // async function submitData(event: React.SyntheticEvent<HTMLFormElement>) {
+  //   event.preventDefault()
+  //   const formData = new FormData(event.currentTarget)
+  //   const name = String(formData.get('name'))
+  //   const email = String(formData.get('email'))
+  //   const data = {name, email}
+  //   if (name && email) {
+  //     await fetch('http://localhost:3000/api/signup', {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     })
+  //     router.push("/")
+  //   }
+  // }
   return (
     <div className={styles.page}>
       <form action={submitAction}>
