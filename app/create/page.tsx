@@ -26,7 +26,7 @@ export default function CreatePostPage() {
   }
   return (
     <main>
-      <form action={ submitAction }>
+      <form action={submitAction}>
         <h1>Create Draft</h1>
         <input name="title" placeholder="Title" type="text" />
         <input name="email" placeholder="Author (email adress)" type="email" />
