@@ -1,18 +1,26 @@
-import Link from "next/link";
+import Post from "@/components/Post";
+import prisma from "@/lib/prisma";
+import styles from './Drafts.module.css';
 
-export default function CreatePostPage() {
+
+export default async function DraftsPage() {
+  const drafts = await prisma.post.findMany({
+    where: {
+      published: false,
+    },
+    include: {
+      author: true,
+    },
+  });
+
   return (
     <main>
-      <form>
-        <h1>
-          Create Draft by Mr Boitmann
-        </h1>
-        <input name="title" placeholder="Title" type="text" />
-        <input name="email" placeholder="Author (email address)" type="email" />
-        <textarea name="content" cols={50} rows={8} placeholder="Content" />
-        <button type="submit"></button>
-        <Link href="/">or Cancel</Link>
-      </form>
+      <h1>Drafts</h1>
+      {[drafts.map(post => (
+        <div key={(post.id)} className={styles.drafts}>
+          <Post post={post} />
+        </div>
+      ))]}
     </main>
   )
 }
