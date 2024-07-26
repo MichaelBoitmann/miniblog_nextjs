@@ -1,3 +1,8 @@
+import PostDetails from "@/components/PostDetails";
+import prisma from "@/lib/prisma";
+import { notFound } from "next/navigation";
+
+
 interface Props {
   params: {
     postId: string;
@@ -5,9 +10,9 @@ interface Props {
 }
 
 
-export default function PostPage({ params}) {
+export default async function PostPage({ params }: Props) {
   console.log(params.postId)
-  await prima.post.fundUnique({
+  const post = await prisma.post.findUnique({
     where: {
       id: Number(params.postId)
     },
@@ -17,11 +22,8 @@ export default function PostPage({ params}) {
   })
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
-  return (
-
-    <div>postpage</div>
-  )
+  return <PostDetails {...post} />
 }
