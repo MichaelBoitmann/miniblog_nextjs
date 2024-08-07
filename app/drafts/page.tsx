@@ -17,7 +17,7 @@ export default async function DraftsPage() {
     <main>
       <h1>Drafts</h1>
       {drafts.map((post) => (
-        <div key={post.id} className={styles.drafts}>
+        <div key={post.id} className={styles.draft}>
           <Post post={post} />
         </div>
       ))}
