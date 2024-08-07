@@ -6,9 +6,9 @@ import { redirect } from "next/navigation";
 export default function CreatePostPage() {
   async function submitAction(formData: FormData) {
     "use server"
-    const title = String(formData.get('title'))
-    const email = String(formData.get('email'))
-    const content = String(formData.get('content'))
+    const title = String(formData.get('title'));
+    const email = String(formData.get('email'));
+    const content = String(formData.get('content'));
     if (title) {
       await prisma.post.create({
         data: {
@@ -20,8 +20,8 @@ export default function CreatePostPage() {
             },
           },
         },
-      })
-      redirect("/drafts")
+      });
+      redirect("/drafts");
     }
   }
   return (

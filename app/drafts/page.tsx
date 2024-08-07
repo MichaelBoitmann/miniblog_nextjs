@@ -16,11 +16,11 @@ export default async function DraftsPage() {
   return (
     <main>
       <h1>Drafts</h1>
-      {[drafts.map(post => (
-        <div key={(post.id)} className={styles.drafts}>
+      {drafts.map((post) => (
+        <div key={post.id} className={styles.drafts}>
           <Post post={post} />
         </div>
-      ))]}
+      ))}
     </main>
   )
 }
