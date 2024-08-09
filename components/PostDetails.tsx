@@ -3,7 +3,7 @@
 import { Post, User } from "@prisma/client"
 import Markdown from "markdown-to-jsx"
 import styles from "./PostDetails.module.css"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 type Props = Post & {
   author: User | null
@@ -19,12 +19,19 @@ export default function PostDetails({
   const router = useRouter();
 
   async function publishPost(postId: number) {
-    await fetch(`http://localhost:3000/api/posts/${postId}`, {
+    await fetch(`http://localhost:3000/api/posts/${id}`, {
       method: "PUT"
     })
     router.refresh()
-    router.push('/')
-    
+    router.push('/')    
+  }
+
+  async function deletePost() {
+    await fetch(`http://localhost:3000/api/posts/${id}`, {
+      method: "DELETE"
+    })
+    router.refresh()
+    router.push('/') 
   }
 
   return (
@@ -35,7 +42,7 @@ export default function PostDetails({
         <Markdown>{content || ""}</Markdown>
       </section>
       {!published && <button className={styles.button} onClick={() => publishPost(id)}>Publish</button>}
-      <button className={styles.button}>Delete</button>
+      <button className={styles.button} onClick={() => deletePost(id)}>Delete</button>
     </main>
   )
 }
