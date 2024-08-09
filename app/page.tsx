@@ -8,6 +8,9 @@ export default async function HomePage() {
     where: {
       published: true,
     },
+    orderBy: {
+      updatedAt: "desc"
+    },
     include: {
       author: true,
     }

@@ -1,18 +1,30 @@
-  "use client"
+"use client"
 
 import { Post, User } from "@prisma/client"
 import Markdown from "markdown-to-jsx"
 import styles from "./PostDetails.module.css"
+import { useRouter } from "next/router"
 
 type Props = Post & {
   author: User | null
 }
 
-export default function PostDetails({ id, author, title, content, published }: Props) {
+export default function PostDetails({
+  id, 
+  author, 
+  title, 
+  content, 
+  published 
+}: Props) {
+  const router = useRouter();
+
   async function publishPost(postId: number) {
     await fetch(`http://localhost:3000/api/posts/${postId}`, {
       method: "PUT"
     })
+    router.refresh()
+    router.push('/')
+    
   }
 
   return (
